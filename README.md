@@ -129,7 +129,7 @@ function Vector(_x, _y) constructor {
     /// @desc Get the distance to another vector from self
     /// @return {Real} distance
     static distance = function (_other) {
-        return sqrt((x - _other.x) * (x - _other.y) + (y - _other.y) * (y - _other.y));
+        return sqrt((x - _other.x) * (x - _other.x) + (y - _other.y) * (y - _other.y));
     }
     
     /// @desc Copy the values from this vector into a new vector
