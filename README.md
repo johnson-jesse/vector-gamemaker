@@ -48,6 +48,14 @@ function Vector(_x, _y) constructor {
         return self;
     }
     
+    /// @desc  Negate Vector's x & y
+    /// @return {Struct.Vector} self
+    static negate = function() {
+        x = -x;
+        y = -y;
+        return self;
+    }
+    
     /// @desc Normalize makes a vector unit length (magnitude = 1) while keeping its direction the same.
     /// @return {Struct.Vector} self
     static normalize = function () {
@@ -120,10 +128,11 @@ function Vector(_x, _y) constructor {
         return sqrt(x * x + y * y);
     }
     
-    /// @desc Get the direction
+    /// @desc Get the direction.
     /// @return {Real} The angle (direction) this vector is facing
     static facing = function() {
-        return radtodeg(arctan2(y, x));
+        // The -y correction accounts for GameMaker's inverted Y-axis (where positive Y points down instead of up)
+        return radtodeg(arctan2(-y, x));
     }
     
     /// @desc Get the distance to another vector from self
@@ -141,6 +150,12 @@ function Vector(_x, _y) constructor {
 
 function VectorZero() : Vector(0, 0) constructor {}
 
+function VectorRandom(_length = 1) : Vector(0, 0) constructor {
+    var _dir = random(360);
+    x = lengthdir_x(_length, _dir);
+    y = lengthdir_y(_length, _dir);
+}
+
 /// @desc Create a new Vector to represent the given angle
 /// @param {Real} _angle in degrees
 function angle_to_vector(_angle) {
@@ -151,9 +166,9 @@ function angle_to_vector(_angle) {
 /// @desc Translate a given Vector into an angle
 /// @param {Struct.Vector} _vector
 function vector_to_angle(_vector) {
-    return radtodeg(arctan2(_vector.y, _vector.x));
+    // The -y correction accounts for GameMaker's inverted Y-axis (where positive Y points down instead of up)
+    return radtodeg(arctan2(-_vector.y, _vector.x));
 }
-
 ```
 
 ### Object ship
